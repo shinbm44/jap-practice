@@ -10,15 +10,19 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
+@Entity
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name ="login_type")
+@Table(name="login_type")
+@SequenceGenerator( name = "LOGIN_TYPE_SEQ_GENERATOR",
+//        sequenceName = "LOGIN_TYPE_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class LoginType {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOGIN_TYPE_SEQ_GENERATOR")
     @Column(name="login_type_id")
     private Long id;
 

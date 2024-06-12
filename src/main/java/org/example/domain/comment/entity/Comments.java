@@ -8,17 +8,25 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.example.domain.member.entity.Member;
 import org.example.domain.post.entity.Post;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
-@Entity
+
+
 @Getter
+@Entity
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Comment {
+@Table(name="comment")
+@SequenceGenerator( name = "COMMENT_SEQ_GENERATOR",
+//        sequenceName = "COMMENT_SEQ",
+        initialValue = 1, allocationSize = 1)
+public class Comments {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMMENT_SEQ_GENERATOR")
     @Column(name="comment_id")
     private Long id;
 
@@ -28,6 +36,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
     private Post post;
 

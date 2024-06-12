@@ -7,23 +7,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.example.domain.member.entity.Member;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name="comment_like")
+@SequenceGenerator( name = "COMMENT_LIKE_SEQ_GENERATOR",
+//        sequenceName = "COMMENT_LIKE_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class CommentLike {
 
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_like_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMMENT_LIKE_SEQ_GENERATOR")
+    @Column(name="comment_like_id")
     private Long commentLikeId;
 
     @ManyToOne
     @JoinColumn(name="comment_id", unique = true, nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
-    private Comment comment;
+    private Comments comment;
 
 
     @ManyToOne

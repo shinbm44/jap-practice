@@ -9,14 +9,18 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
+@Entity
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name="role")
+@SequenceGenerator( name = "ROLE_SEQ_GENERATOR",
+//        sequenceName = "MEMBER_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ_GENERATOR")
     @Column(name = "role_id", nullable = false)
     private Long id;
 

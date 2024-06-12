@@ -1,25 +1,26 @@
 package org.example.domain.post.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.example.domain.comment.entity.Comment;
+import lombok.*;
+import org.example.domain.comment.entity.Comments;
 import org.example.domain.member.entity.Member;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @Getter
+@Entity
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "post")
+@Table(name="post")
+@SequenceGenerator( name = "POST_SEQ_GENERATOR",
+//        sequenceName = "MEMBER_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POST_SEQ_GENERATOR")
     @Column(name ="post_id")
     private long id;
 
@@ -31,7 +32,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post" , fetch = FetchType.LAZY )
     @ToString.Exclude
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comments> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "post" , fetch = FetchType.LAZY )
     @ToString.Exclude
