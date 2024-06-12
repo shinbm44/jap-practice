@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.example.domain.comment.entity.Comment;
+import org.example.domain.member.entity.Member;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,6 @@ public class Post {
     @Column(name ="post_id")
     private long id;
 
-
     @Column(name ="title", nullable = false)
     private String title;
 
@@ -36,5 +36,15 @@ public class Post {
     @OneToMany(mappedBy = "post" , fetch = FetchType.LAZY )
     @ToString.Exclude
     private List<PostImage> postImages = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id", nullable = false)
+    @ToString.Exclude
+    private Member member;
+
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<PostLike> postLikes = new ArrayList<>();
 
 }

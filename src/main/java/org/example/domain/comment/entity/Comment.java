@@ -6,7 +6,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.example.domain.member.entity.Member;
 import org.example.domain.post.entity.Post;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,10 +26,19 @@ public class Comment {
     private Long parent_id;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     @ToString.Exclude
     private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    @ToString.Exclude
+    private Member member;
+
+    @OneToMany(mappedBy = "comment",fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<CommentLike> commentLikes;
 
 
     @Column(name="content", nullable=false)
