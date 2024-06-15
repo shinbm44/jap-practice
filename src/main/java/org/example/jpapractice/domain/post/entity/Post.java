@@ -31,6 +31,7 @@ public class Post {
     private String title;
 
     @Column(name ="content", nullable = false)
+    @Lob // long Text 형태
     private String content;
 
     @OneToMany(mappedBy = "post" , fetch = FetchType.LAZY )

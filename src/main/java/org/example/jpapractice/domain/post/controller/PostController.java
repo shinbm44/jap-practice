@@ -2,8 +2,10 @@ package org.example.jpapractice.domain.post.controller;
 
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.jpapractice.domain.post.dto.PostDTO;
+import org.example.jpapractice.domain.post.service.PostService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -23,22 +25,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 @Slf4j
 public class PostController {
 
+    private final PostService postService;
+
     @PostMapping("/posts")
     public Map<String, String> getPosts(@RequestBody @Valid PostDTO postDTO) {
-//
-//        if(bindingResult.hasErrors()) {
-//            List<FieldError> errors = bindingResult.getFieldErrors();
-//            FieldError error = errors.get(0);
-//            String filedName = error.getField(); // title
-//            String errorMessage = error.getDefaultMessage(); // ..에러 메세지
-//
-//            Map<String, String> errorMap = new HashMap<>();
-//            errorMap.put(filedName, errorMessage);
-//            return errorMap;
-//        }
+
+        postService.write(postDTO);
 
         log.info("postDTO: {}", postDTO.toString());
         return Map.of();
