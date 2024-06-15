@@ -1,4 +1,4 @@
-package org.example.domain.member.entity;
+package org.example.jpapractice.domain.member.entity;
 
 
 import jakarta.persistence.*;

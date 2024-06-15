@@ -1,4 +1,4 @@
-package org.example.domain.member.entity;
+package org.example.jpapractice.domain.member.entity;
 
 
 import jakarta.persistence.*;
@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

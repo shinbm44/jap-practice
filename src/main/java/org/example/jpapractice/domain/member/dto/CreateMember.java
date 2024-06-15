@@ -1,4 +1,4 @@
-package org.example.domain.member.dto;
+package org.example.jpapractice.domain.member.dto;
 
 import lombok.Getter;
 

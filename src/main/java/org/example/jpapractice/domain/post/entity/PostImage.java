@@ -1,4 +1,4 @@
-package org.example.domain.post.entity;
+package org.example.jpapractice.domain.post.entity;
 
 
 import jakarta.persistence.*;

@@ -1,9 +1,10 @@
-package org.example.domain.post.entity;
+package org.example.jpapractice.domain.post.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.domain.comment.entity.Comments;
-import org.example.domain.member.entity.Member;
+import org.example.jpapractice.domain.comment.entity.Comments;
+import org.example.jpapractice.domain.member.entity.Member;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,9 @@ import java.util.List;
 
 @Getter
 @Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Table(name="post")
 @SequenceGenerator( name = "POST_SEQ_GENERATOR",

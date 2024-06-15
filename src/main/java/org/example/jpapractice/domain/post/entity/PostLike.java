@@ -1,11 +1,12 @@
-package org.example.domain.post.entity;
+package org.example.jpapractice.domain.post.entity;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.example.domain.member.entity.Member;
+
+import org.example.jpapractice.domain.member.entity.Member;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

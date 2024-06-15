@@ -1,14 +1,15 @@
-package org.example.domain.member.entity;
+package org.example.jpapractice.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.example.domain.comment.entity.Comments;
-import org.example.domain.comment.entity.CommentLike;
-import org.example.domain.post.entity.Post;
-import org.example.domain.post.entity.PostLike;
+import org.example.jpapractice.domain.comment.entity.CommentLike;
+import org.example.jpapractice.domain.comment.entity.Comments;
+import org.example.jpapractice.domain.post.entity.Post;
+import org.example.jpapractice.domain.post.entity.PostLike;
+
 
 import java.util.ArrayList;
 import java.util.List;
