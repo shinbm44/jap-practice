@@ -27,18 +27,18 @@ import java.util.Map;
 public class PostController {
 
     @PostMapping("/posts")
-    public Map<String, String> getPosts(@RequestBody @Valid PostDTO postDTO, BindingResult bindingResult) {
-
-        if(bindingResult.hasErrors()) {
-            List<FieldError> errors = bindingResult.getFieldErrors();
-            FieldError error = errors.get(0);
-            String filedName = error.getField(); // title
-            String errorMessage = error.getDefaultMessage(); // ..에러 메세지
-
-            Map<String, String> errorMap = new HashMap<>();
-            errorMap.put(filedName, errorMessage);
-            return errorMap;
-        }
+    public Map<String, String> getPosts(@RequestBody @Valid PostDTO postDTO) {
+//
+//        if(bindingResult.hasErrors()) {
+//            List<FieldError> errors = bindingResult.getFieldErrors();
+//            FieldError error = errors.get(0);
+//            String filedName = error.getField(); // title
+//            String errorMessage = error.getDefaultMessage(); // ..에러 메세지
+//
+//            Map<String, String> errorMap = new HashMap<>();
+//            errorMap.put(filedName, errorMessage);
+//            return errorMap;
+//        }
 
         log.info("postDTO: {}", postDTO.toString());
         return Map.of();
