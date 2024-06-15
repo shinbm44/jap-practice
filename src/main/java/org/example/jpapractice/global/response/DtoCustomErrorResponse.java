@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Getter
 @RequiredArgsConstructor
-public class CustomErrorResponse {
+public class DtoCustomErrorResponse {
 
     private final String code;
     private final String message;

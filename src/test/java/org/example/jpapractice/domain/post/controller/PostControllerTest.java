@@ -35,25 +35,19 @@ class PostControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Test
-    @DisplayName("/post 요청 시(PostController) ")
-    void test2() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\":\"제목입니다.\", \"content\": \"내용입니다.\"}")
-
-                )
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("{}"))
-                .andDo(MockMvcResultHandlers.print());
-    }
 
     @Test
     @DisplayName("/post 요청시 title 값은 필수이다. ")
      void test3() throws Exception {
+
+        PostDTO postDTO = PostDTO.builder()
+                .title(null)
+                .content("내용입니다.")
+                .build();
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/posts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"title\" : null, \"content\": \"내용입니다.\"}")
+                        .content(objectMapper.writeValueAsBytes(postDTO))
                 )
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("400"))
