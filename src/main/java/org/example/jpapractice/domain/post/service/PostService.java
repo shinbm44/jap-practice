@@ -8,12 +8,15 @@ import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
+
 
 
     public void write (CreatePostDto postDTO) {
@@ -37,6 +40,12 @@ public class PostService {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .build();
+
+    }
+
+
+    public List<Post> getList() {
+        return postRepository.findAll();
 
     }
 

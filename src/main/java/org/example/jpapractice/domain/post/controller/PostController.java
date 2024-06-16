@@ -6,9 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.jpapractice.domain.post.dto.request.CreatePostDto;
 import org.example.jpapractice.domain.post.dto.respnse.GetPostDto;
+import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 // 데이터 검증 이유
 
@@ -40,5 +43,12 @@ public class PostController {
         GetPostDto getPostDto = postService.read(id);
 
         return ResponseEntity.ok(getPostDto);
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getPosts() {
+        List<Post> posts= postService.getList();
+
+        return ResponseEntity.ok(posts);
     }
 }

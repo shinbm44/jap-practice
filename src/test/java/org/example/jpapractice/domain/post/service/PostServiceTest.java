@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -75,7 +77,43 @@ class PostServiceTest {
         Assertions.assertEquals(getPostDto.getTitle(), result.getTitle());
         Assertions.assertEquals(getPostDto.getContent(), result.getContent());
 
-
         verify(postRepository, times(1)).findById(requestpost.getId());
+    }
+
+    @Test
+    @DisplayName("글 여러개 조회 서비스")
+    void test3() {
+        Post post1 = Post.builder()
+                .id(1L)
+                .title("제목1")
+                .content("내용1")
+                .build();
+
+        Post post2 = Post.builder()
+                .id(2L)
+                .title("제목2")
+                .content("내용2")
+                .build();
+
+        List<Post> postList = Arrays.asList(post1, post2);
+        when(postRepository.findAll()).thenReturn(postList);
+
+        // Call the service method
+        List<Post> result = postService.getList();
+
+        // Verify that postRepository.findAll() was called once
+        verify(postRepository, times(1)).findAll();
+
+        // Assertions to check if the result matches the expected output
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertEquals(post1.getId(), result.get(0).getId());
+        Assertions.assertEquals(post1.getTitle(), result.get(0).getTitle());
+        Assertions.assertEquals(post1.getContent(), result.get(0).getContent());
+        Assertions.assertEquals(post2.getId(), result.get(1).getId());
+        Assertions.assertEquals(post2.getTitle(), result.get(1).getTitle());
+        Assertions.assertEquals(post2.getContent(), result.get(1).getContent());
+
+
     }
 }

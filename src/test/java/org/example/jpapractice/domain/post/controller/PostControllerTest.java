@@ -3,7 +3,9 @@ package org.example.jpapractice.domain.post.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.jpapractice.domain.post.dto.request.CreatePostDto;
 import org.example.jpapractice.domain.post.dto.respnse.GetPostDto;
+import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.service.PostService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -108,5 +113,43 @@ class PostControllerTest {
 
         // then
         verify(postService, times(1)).read(postId);
+    }
+
+
+
+    @Test
+    @DisplayName("글 여러개 조회")
+    void test6() throws Exception {
+
+        Post post1 = Post.builder()
+                .id(1L)
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
+
+        Post post2 = Post.builder()
+                .id(2L)
+                .title("제목입니다.")
+                .content("내용입니다.")
+                .build();
+
+        //given
+        List<Post> postList = Arrays.asList(post1, post2);
+        // 설정
+        when(postService.getList()).thenReturn(postList);
+
+
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2))) // JSON 배열의 크기가 2인지 확인
+                .andDo(MockMvcResultHandlers.print());
+
+        // then
+        verify(postService, times(1)).getList();
+
     }
 }
