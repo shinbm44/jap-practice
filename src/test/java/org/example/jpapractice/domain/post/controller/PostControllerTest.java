@@ -1,7 +1,7 @@
 package org.example.jpapractice.domain.post.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.jpapractice.domain.post.dto.PostDTO;
+import org.example.jpapractice.domain.post.dto.CreatePostDTO;
 import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.service.PostService;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.awaitility.Awaitility.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -29,9 +28,6 @@ class PostControllerTest {
     @MockBean
     private PostService postService;
 
-    @MockBean
-    private PostDTO postDTO;
-
     @Autowired
     ObjectMapper objectMapper;
 
@@ -40,7 +36,7 @@ class PostControllerTest {
     @DisplayName("/post 요청시 title 값은 필수이다. ")
      void test3() throws Exception {
 
-        PostDTO postDTO = PostDTO.builder()
+        CreatePostDTO postDTO = CreatePostDTO.builder()
                 .title(null)
                 .content("내용입니다.")
                 .build();
@@ -56,17 +52,19 @@ class PostControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-//    postService
+
     @Test
     @DisplayName("/post 요청 시(PostController) ")
     void test4() throws Exception {
 
-        PostDTO postDTO = new PostDTO().builder()
+        CreatePostDTO postDTO = new CreatePostDTO().builder()
                 .title("제목입니다.")
                 .content("내용입니다.")
                 .build();
+
+        // 아직 이게 왜 필요한건지 모르겠음.
         //given
-        doNothing().when(postService).write(any(PostDTO.class));
+        doNothing().when(postService).write(any(CreatePostDTO.class));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.post("/api/posts")
@@ -74,12 +72,12 @@ class PostControllerTest {
                         .content(objectMapper.writeValueAsString(postDTO))
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("{}"))
+                .andExpect(MockMvcResultMatchers.content().string("Create"))
                 .andDo(MockMvcResultHandlers.print());
 
         //then
         //postService의 write 메서드가 한 번 호출인지 검증
         //.write(any(PostDTO.class)): PostDTO 타입의 어떤 인자를 받는 write 메서드 호출을 검증합니다.
-        verify(postService, times(1)).write(any(PostDTO.class));
+        verify(postService, times(1)).write(any(CreatePostDTO.class));
     }
 }

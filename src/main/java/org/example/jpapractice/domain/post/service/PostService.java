@@ -2,7 +2,7 @@ package org.example.jpapractice.domain.post.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.jpapractice.domain.post.dto.PostDTO;
+import org.example.jpapractice.domain.post.dto.CreatePostDTO;
 import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class PostService {
     private final PostRepository postRepository;
 
 
-    public void write (PostDTO postDTO) {
+    public void write (CreatePostDTO postDTO) {
 
         Post post = Post.builder()
                 .title(postDTO.getTitle())

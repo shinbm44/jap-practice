@@ -4,14 +4,12 @@ package org.example.jpapractice.domain.post.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.jpapractice.domain.post.dto.PostDTO;
+import org.example.jpapractice.domain.post.dto.CreatePostDTO;
+import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.service.PostService;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 // 데이터 검증 이유
@@ -32,12 +30,11 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public Map<String, String> getPosts(@RequestBody @Valid PostDTO postDTO) {
+    public ResponseEntity getPosts(@RequestBody @Valid CreatePostDTO postDTO) {
 
         postService.write(postDTO);
 
-        log.info("postDTO: {}", postDTO.toString());
-        return Map.of();
+        return ResponseEntity.ok( "Create");
     }
 
 }

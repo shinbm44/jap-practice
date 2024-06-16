@@ -18,7 +18,10 @@ public class ExceprionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public DtoCustomErrorResponse invalidRequestHandler(MethodArgumentNotValidException e) {
 
-            DtoCustomErrorResponse response = new DtoCustomErrorResponse("400", "잘못된 요청입니다.");
+            DtoCustomErrorResponse response = DtoCustomErrorResponse.builder()
+                    .code("400")
+                    .message("잘못된 요청입니다.")
+                    .build();
 
             for(FieldError fieldError : e.getFieldErrors()) {
                 response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());

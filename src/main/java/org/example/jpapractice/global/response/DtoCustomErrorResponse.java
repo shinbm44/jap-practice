@@ -1,6 +1,7 @@
 package org.example.jpapractice.global.response;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ import java.util.Map;
  * }
  */
 @Getter
+@Builder
 @RequiredArgsConstructor
 public class DtoCustomErrorResponse {
 
