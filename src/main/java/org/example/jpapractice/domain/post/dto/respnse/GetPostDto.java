@@ -1,4 +1,4 @@
-package org.example.jpapractice.domain.post.dto;
+package org.example.jpapractice.domain.post.dto.respnse;
 
 
 import lombok.*;

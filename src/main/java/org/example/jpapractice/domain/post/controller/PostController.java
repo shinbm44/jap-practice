@@ -4,10 +4,9 @@ package org.example.jpapractice.domain.post.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.jpapractice.domain.post.dto.CreatePostDto;
-import org.example.jpapractice.domain.post.dto.GetPostDto;
+import org.example.jpapractice.domain.post.dto.request.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.respnse.GetPostDto;
 import org.example.jpapractice.domain.post.service.PostService;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

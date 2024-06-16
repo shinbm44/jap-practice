@@ -1,8 +1,8 @@
 package org.example.jpapractice.domain.post.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.jpapractice.domain.post.dto.CreatePostDto;
-import org.example.jpapractice.domain.post.dto.GetPostDto;
+import org.example.jpapractice.domain.post.dto.request.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.respnse.GetPostDto;
 import org.example.jpapractice.domain.post.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -82,7 +82,7 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("단건으로 1개 조회")
+    @DisplayName("단건으로 1개 글 조회")
     void test5() throws Exception {
 
         Long postId = 1L;
@@ -105,7 +105,6 @@ class PostControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("제목입니다."))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("내용입니다."))
                 .andDo(MockMvcResultHandlers.print());
-
 
         // then
         verify(postService, times(1)).read(postId);

@@ -1,6 +1,7 @@
 package org.example.jpapractice.domain.post.service;
 
-import org.example.jpapractice.domain.post.dto.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.request.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.respnse.GetPostDto;
 import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +13,9 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,5 +48,34 @@ class PostServiceTest {
         Post capturedPost = postCaptor.getValue();
         Assertions.assertEquals(createPostDTO.getTitle(), capturedPost.getTitle());
         Assertions.assertEquals(createPostDTO.getContent(), capturedPost.getContent());
+    }
+
+    @Test
+    @DisplayName("글 1개 조회")
+    void test2() {
+        Post requestpost = Post.builder()
+                .id(1L)
+                .title("제목")
+                .content("내용")
+                .build();
+
+        GetPostDto getPostDto = GetPostDto.builder()
+                .id(requestpost.getId())
+                .title(requestpost.getTitle())
+                .content(requestpost.getContent())
+                .build();
+
+
+        when(postRepository.findById(1L)).thenReturn(Optional.of(requestpost));
+
+        GetPostDto result = postService.read(requestpost.getId());
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(getPostDto.getId(), result.getId());
+        Assertions.assertEquals(getPostDto.getTitle(), result.getTitle());
+        Assertions.assertEquals(getPostDto.getContent(), result.getContent());
+
+
+        verify(postRepository, times(1)).findById(requestpost.getId());
     }
 }

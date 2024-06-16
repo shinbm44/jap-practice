@@ -1,4 +1,4 @@
-package org.example.jpapractice.domain.post.dto;
+package org.example.jpapractice.domain.post.dto.request;
 
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;

@@ -2,11 +2,10 @@ package org.example.jpapractice.domain.post.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.jpapractice.domain.post.dto.CreatePostDto;
-import org.example.jpapractice.domain.post.dto.GetPostDto;
+import org.example.jpapractice.domain.post.dto.request.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.respnse.GetPostDto;
 import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.repository.PostRepository;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 @Slf4j
