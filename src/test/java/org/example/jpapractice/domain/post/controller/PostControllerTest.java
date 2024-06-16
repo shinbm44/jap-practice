@@ -146,6 +146,12 @@ class PostControllerTest {
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2))) // JSON 배열의 크기가 2인지 확인
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(post1.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].title").value(post1.getTitle()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].content").value(post1.getContent()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(post2.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].title").value(post2.getTitle()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].content").value(post2.getContent()))
                 .andDo(MockMvcResultHandlers.print());
 
         // then
