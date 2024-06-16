@@ -2,9 +2,11 @@ package org.example.jpapractice.domain.post.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.jpapractice.domain.post.dto.CreatePostDTO;
+import org.example.jpapractice.domain.post.dto.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.GetPostDto;
 import org.example.jpapractice.domain.post.entity.Post;
 import org.example.jpapractice.domain.post.repository.PostRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -15,7 +17,7 @@ public class PostService {
     private final PostRepository postRepository;
 
 
-    public void write (CreatePostDTO postDTO) {
+    public void write (CreatePostDto postDTO) {
 
         Post post = Post.builder()
                 .title(postDTO.getTitle())
@@ -23,6 +25,20 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
+    }
+
+
+    public GetPostDto read (Long id)  {
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        return GetPostDto.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .build();
+
     }
 
 }

@@ -4,13 +4,12 @@ package org.example.jpapractice.domain.post.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.jpapractice.domain.post.dto.CreatePostDTO;
-import org.example.jpapractice.domain.post.entity.Post;
+import org.example.jpapractice.domain.post.dto.CreatePostDto;
+import org.example.jpapractice.domain.post.dto.GetPostDto;
 import org.example.jpapractice.domain.post.service.PostService;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 // 데이터 검증 이유
 
@@ -30,11 +29,17 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public ResponseEntity getPosts(@RequestBody @Valid CreatePostDTO postDTO) {
+    public ResponseEntity<String> getPosts(@RequestBody @Valid CreatePostDto postDTO) {
 
         postService.write(postDTO);
 
         return ResponseEntity.ok( "Create");
     }
 
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<GetPostDto> getPost(@PathVariable("id") long id)  {
+        GetPostDto getPostDto = postService.read(id);
+
+        return ResponseEntity.ok(getPostDto);
+    }
 }
